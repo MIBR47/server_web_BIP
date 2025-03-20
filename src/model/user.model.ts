@@ -15,7 +15,11 @@ import { MasterRecordStatusEnum } from "@prisma/client";
 //     image?: string;
 //     hashedRefreshToken?: string;
 // }
-
+export class UserResponseModel {
+    username: string;
+    name: string;
+    token?: string;
+}
 
 export class RegisterUserRequestModel {
     username: string;
@@ -23,11 +27,6 @@ export class RegisterUserRequestModel {
     name: string;
 }
 
-export class UserResponseModel {
-    username: string;
-    name: string;
-    token?: string;
-}
 
 export class LoginUserRequestModel {
     username: string
