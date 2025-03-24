@@ -36,7 +36,7 @@ export class SubCategoryService {
             }
         });
 
-        this.logger.info(`test`);
+        // this.logger.info(`test`);
 
         if (totalSubCategorywithSameName != 0) {
             throw new HttpException('subcategory already exits', 401);
@@ -49,7 +49,7 @@ export class SubCategoryService {
                 id: createRequest.categoryId
             }
         })
-        this.logger.info(`id sama dengan ${category?.id} dan ${createRequest.imageURL}`);
+        // this.logger.info(`id sama dengan ${category?.id} dan ${createRequest.imageURL}`);
         // this.logger.info(`test2`);
         // console.log("test-2")
 
@@ -62,7 +62,7 @@ export class SubCategoryService {
             //     Category: true
             // }
         })
-        this.logger.info(`test3`);
+        // this.logger.info(`test3`);
         return {
             name: subCategory.name,
             slug: subCategory.slug ?? '',
