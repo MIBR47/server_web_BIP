@@ -20,7 +20,7 @@ import { LoginUserRequestModel, RegisterUserRequestModel, UserResponseModel } fr
 export class UserController {
   constructor(private userService: UserService) { }
 
-  @Post()
+  @Post('/admin/register')
   @HttpCode(200)
   async create(@Body() request: RegisterUserRequestModel): Promise<webResponse<UserResponseModel>> {
     const result = await this.userService.create(request);
@@ -30,7 +30,7 @@ export class UserController {
     };
   }
 
-  @Post('/login')
+  @Post('/admin/login')
   @HttpCode(200)
   async login(
     @Body() request: LoginUserRequestModel,

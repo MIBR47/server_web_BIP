@@ -19,7 +19,7 @@ export class CategoryController {
     constructor(private categoryService: CategoryService) { }
 
 
-    @Post('/create')
+    @Post('/admin/create')
     @HttpCode(200)
     async create(@Auth() user: User, @Body() request: CreateCategoryRequest): Promise<webResponse<CategoryResponse>> {
         const result = await this.categoryService.create(user, request);
@@ -27,6 +27,16 @@ export class CategoryController {
         return {
             data: result
         };
+    }
+
+    @Get('/findall')
+    async findAll(
+        @Body('category_id') category_id: number,
+    ): Promise<webResponse<CategoryResponse[]>> {
+        const result = await this.categoryService.findAll(category_id);
+        return {
+            data: result
+        }
     }
 
 

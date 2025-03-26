@@ -9,7 +9,7 @@ import { Logger } from 'winston';
 // import { v4 as uuid } from 'uuid';
 import { CategoryValidation } from './category.validation';
 import { CategoryResponse, CreateCategoryRequest } from 'src/model/category.model';
-import { User } from '@prisma/client';
+import { User, Category } from '@prisma/client';
 
 
 @Injectable()
@@ -64,5 +64,35 @@ export class CategoryService {
             iShowedStatus: category.iShowedStatus,
             imageURL: category.imageURL ?? '',
         }
+    }
+
+    async findAll(
+        category_id: number,
+    ): Promise<CategoryResponse[]> {
+        const Categories = await this.prismaService.category.findMany({
+            where: { iShowedStatus: 'SHOW' },
+        });
+
+        const allCategory = Categories.map((category) => {
+            // const primaryImages = subcategory.images.filter((image) => image.isPrimary);
+            // const primaryImageURL =
+            //     primaryImages.length > 0 ? primaryImages[0].imageURL : null;
+            return {
+                ...category,
+                createdBy: category.createdBy.trim()
+                // id: subcategory.id,
+                // name: subcategory.name.trim(),
+                // slug: subcategory.slug?.trim(),
+                // catalog_id: product.catalog_id?.trim(),
+                // register_id: product.register_id?.trim(),
+                // category_id: subcategory.category_id,
+                // subCategory_id: product.subCategory_id.trim(),
+                // brand_id: product.brand_id.trim(),
+                // uom_id: product.uom_id?.trim(),
+                // primaryImageURL,
+            };
+        });
+
+        return allCategory as CategoryResponse[];
     }
 }

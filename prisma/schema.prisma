@@ -15,16 +15,34 @@ model Billboard {
   btnText       String?                @db.VarChar(50)
   isImage       Boolean?
   iStatus       MasterRecordStatusEnum @default(ACTIVE)
-  iShowedStatus WebsiteDisplayStatus   @default(HIDDEN)
+  iShowedStatus WebsiteDisplayStatus   @default(SHOW)
   remarks       String?                @db.VarChar(250)
-  createdBy     String?                @db.Char(10)
-  createdAt     DateTime?              @default(now())
-  updatedBy     String?                @db.Char(10)
-  updatedAt     DateTime?
-  contentURL    String                 @db.VarChar(250)
-  content_id    String                 @db.Char(30)
+  createdBy     String?                @db.Char(50)
+  createdAt     DateTime?              @default(now()) @db.Timestamptz(3)
+  updatedBy     String?                @db.Char(50)
+  updatedAt     DateTime?              @db.Timestamptz(3)
+  contentURL    String?                @db.VarChar(250)
+  content_id    String?                @db.Char(30)
 
   @@map("Billboards")
+}
+
+model news {
+  id            Int                  @id(map: "pk_news") @default(autoincrement()) @db.SmallInt
+  title         String
+  article       String?
+  // iStatus       MasterRecordStatusEnum @default(ACTIVE)
+  imageURL      String?              @db.VarChar(250)
+  iShowedStatus WebsiteDisplayStatus @default(SHOW)
+  remarks       String?              @db.VarChar(250)
+  newsTime      DateTime?            @default(now()) @db.Timestamptz(3)
+  createdBy     String?              @db.Char(50)
+  createdAt     DateTime?            @default(now()) @db.Timestamptz(3)
+  updatedBy     String?              @db.Char(50)
+  updatedAt     DateTime?
+  contentURL    String?              @db.VarChar(250)
+
+  @@map("News")
 }
 
 model Category {
@@ -33,12 +51,12 @@ model Category {
   slug          String?                @unique @db.VarChar(50)
   remarks       String?                @db.VarChar(250)
   iStatus       MasterRecordStatusEnum @default(ACTIVE)
-  iShowedStatus WebsiteDisplayStatus   @default(HIDDEN)
+  iShowedStatus WebsiteDisplayStatus   @default(SHOW)
   imageURL      String?                @db.VarChar(250)
-  createdBy     String                 @db.Char(10)
-  createdAt     DateTime               @default(now())
-  updatedBy     String?                @db.Char(10)
-  updatedAt     DateTime?
+  createdBy     String                 @db.Char(50)
+  createdAt     DateTime               @default(now()) @db.Timestamptz(3)
+  updatedBy     String?                @db.Char(50)
+  updatedAt     DateTime?              @db.Timestamptz(3)
   // href          String?                @db.VarChar(150)
   // icon          String?                @db.VarChar(50)
   SubCategory   SubCategory[]
@@ -53,12 +71,12 @@ model SubCategory {
   remarks       String?                @db.VarChar(250)
   categoryId    Int                    @db.Integer
   iStatus       MasterRecordStatusEnum @default(ACTIVE)
-  iShowedStatus WebsiteDisplayStatus   @default(HIDDEN)
+  iShowedStatus WebsiteDisplayStatus   @default(SHOW)
   imageURL      String?                @db.VarChar(250)
-  createdBy     String                 @db.Char(10)
-  createdAt     DateTime               @default(now())
-  updatedBy     String?                @db.Char(10)
-  updatedAt     DateTime?
+  createdBy     String                 @db.Char(50)
+  createdAt     DateTime               @default(now()) @db.Timestamptz(3)
+  updatedBy     String?                @db.Char(50)
+  updatedAt     DateTime?              @db.Timestamptz(3)
 
   // href          String?                @db.VarChar(150)
   // icon          String?                @db.VarChar(50)
@@ -78,15 +96,15 @@ model Product {
   eCatalogURL    String?                @db.VarChar(250)
   remarks        String?                @db.VarChar(250)
   iStatus        MasterRecordStatusEnum @default(ACTIVE)
-  iShowedStatus  WebsiteDisplayStatus   @default(HIDDEN)
+  iShowedStatus  WebsiteDisplayStatus   @default(SHOW)
   // isMaterial    Boolean                @default(false)
   // isService     Boolean                @default(false)
   // isFinishing   Boolean                @default(false)
   // isAccessories Boolean                @default(false)
-  createdBy      String                 @db.Char(10)
-  createdAt      DateTime               @default(now())
-  updatedBy      String?                @db.Char(10)
-  updatedAt      DateTime?
+  createdBy      String                 @db.Char(50)
+  createdAt      DateTime               @default(now()) @db.Timestamptz(3)
+  updatedBy      String?                @db.Char(50)
+  updatedAt      DateTime?              @db.Timestamptz(3)
   subCategory    SubCategory            @relation(fields: [subCategory_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "Product_id_subCategory_fkey")
   ProductDesc    ProductDesc[]
   ProductImage   ProductImage[]
@@ -101,10 +119,10 @@ model ProductDesc {
   descriptions String?
   productSpec  String?
   benefits     String?
-  createdBy    String    @db.Char(10)
-  createdAt    DateTime  @default(now())
-  updatedBy    String?   @db.Char(10)
-  updatedAt    DateTime?
+  createdBy    String    @db.Char(50)
+  createdAt    DateTime  @default(now()) @db.Timestamptz(3)
+  updatedBy    String?   @db.Char(50)
+  updatedAt    DateTime? @db.Timestamptz(3)
   product_id   Int       @db.Integer
   Product      Product   @relation(fields: [product_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "ProductDesc_id_product_fkey")
 
@@ -118,10 +136,10 @@ model ProductImage {
   imageURL   String                 @db.VarChar(250)
   isPrimary  Boolean
   iStatus    MasterRecordStatusEnum @default(ACTIVE)
-  createdBy  String?                @db.Char(10)
-  createdAt  DateTime               @default(now())
-  updatedBy  String?                @db.Char(10)
-  updatedAt  DateTime?
+  createdBy  String?                @db.Char(50)
+  createdAt  DateTime               @default(now()) @db.Timestamptz(3)
+  updatedBy  String?                @db.Char(50)
+  updatedAt  DateTime?              @db.Timestamptz(3)
   Product    Product                @relation(fields: [product_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "ProductImage_id_Product_fkey")
 
   @@index([product_id], map: "fki_ProductImage_id_Product_fkey")
@@ -223,7 +241,7 @@ model User {
   // password           String                  @db.VarChar(255)
   // hashedRefreshToken String?                 @db.VarChar(255)
   id       Int     @id @default(autoincrement()) @db.SmallInt
-  username String  @unique @db.VarChar(100)
+  username String  @unique @db.VarChar(50)
   password String  @db.VarChar(100)
   name     String  @db.VarChar(100)
   isAdmin  Boolean @default(false)
