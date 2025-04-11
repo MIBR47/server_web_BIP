@@ -28,6 +28,12 @@ import { AuthMiddleware } from './auth.middleware';
 })
 export class CommonModule implements NestModule {
     configure(consumer: MiddlewareConsumer) {
-        consumer.apply(AuthMiddleware).forRoutes('/api/*');
+        consumer.apply(AuthMiddleware).forRoutes('/api/billboard/admin/*path');
+        consumer.apply(AuthMiddleware).forRoutes('/api/news/admin/*path');
+        consumer.apply(AuthMiddleware).forRoutes('/api/subcategory/admin/*path');
+        consumer.apply(AuthMiddleware).forRoutes('/api/category/admin/*path');
+        consumer.apply(AuthMiddleware).forRoutes('/api/users/admin/*path');
+        consumer.apply(AuthMiddleware).forRoutes('/api/product/admin/*path');
+
     }
 }

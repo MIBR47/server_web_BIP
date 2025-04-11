@@ -20,7 +20,7 @@ export class ProductController {
     constructor(private productService: ProductService) { }
 
 
-    @Post('/create')
+    @Post('/admin/create')
     @HttpCode(200)
     async create(@Auth() user: User, @Body() request: CreateProductRequest): Promise<webResponse<ProductResponse>> {
         const result = await this.productService.create(user, request);
@@ -29,7 +29,7 @@ export class ProductController {
             data: result
         };
     }
-    @Post('/createDescProduct')
+    @Post('/admin/createDescProduct')
     @HttpCode(200)
     async createDescProduct(@Auth() user: User, @Body() request: ProductDescRequest): Promise<webResponse<ProductDescResponse>> {
         const result = await this.productService.createDesc(user, request);
@@ -39,7 +39,7 @@ export class ProductController {
         };
     }
 
-    @Post('/createImageProduct')
+    @Post('/admin/createImageProduct')
     @HttpCode(200)
     async createImageProduct(@Auth() user: User, @Body() request: ProductImageRequest): Promise<webResponse<ProductImageResponse>> {
         const result = await this.productService.createImage(user, request);
@@ -47,6 +47,26 @@ export class ProductController {
         return {
             data: result
         };
+    }
+
+    @Get('/findall')
+    async findAll(
+        // @Body('category_id') category_id: number,
+    ): Promise<webResponse<ProductResponse[]>> {
+        const result = await this.productService.findAll();
+        return {
+            data: result
+        }
+    }
+
+    @Get('/findbyid/:subCategory_id')
+    async findByID(
+        @Param('subCatergory_id') subCategory_id: number,
+    ): Promise<webResponse<ProductResponse[]>> {
+        const result = await this.productService.findbyid(subCategory_id);
+        return {
+            data: result
+        }
     }
 
 

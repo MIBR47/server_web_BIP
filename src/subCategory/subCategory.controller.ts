@@ -30,11 +30,22 @@ export class SubCategoryController {
     }
 
     // @Public()
-    @Get('/findall')
-    async findAll(
-        @Body('category_id') category_id: number,
+    @Get('/findbyslug/:slug')
+    async findAllByslug(
+        @Param('slug') slug: string,
     ): Promise<webResponse<SubCategoryResponse[]>> {
-        const result = await this.subCategoryService.findAll(category_id);
+        const result = await this.subCategoryService.findByslug(slug);
+        return {
+            data: result
+        }
+    }
+
+    @Get('/findbycategoryid/:id')
+    async findAllByCategoryId(
+        @Param('categoryId') categoryID: number,
+    ): Promise<webResponse<SubCategoryResponse[]>> {
+        // console.log("param kebaca?" + id);
+        const result = await this.subCategoryService.findByCategoryId(categoryID);
         return {
             data: result
         }

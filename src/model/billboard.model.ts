@@ -8,6 +8,9 @@ export class BillboardResponse {
     // btnText: string;
     // isImage: boolean;
     contentURL: string;
+    iStatus: MasterRecordStatusEnum;
+    iShowedStatus: WebsiteDisplayStatus;
+    isImage: boolean;
     // content_id: string;
     // ProductDesc: ProductDesc[]
 
@@ -20,6 +23,9 @@ export class CreateBillboardRequest {
     // btnText: string;
     // isImage: boolean;
     contentURL: string;
+    iStatus: MasterRecordStatusEnum;
+    iShowedStatus: WebsiteDisplayStatus;
+    isImage: boolean;
     // content_id: string;
     // remarks: string;
 }

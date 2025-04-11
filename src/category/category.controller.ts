@@ -31,9 +31,19 @@ export class CategoryController {
 
     @Get('/findall')
     async findAll(
-        @Body('category_id') category_id: number,
+        // @Body('category_id') category_id: number,
     ): Promise<webResponse<CategoryResponse[]>> {
-        const result = await this.categoryService.findAll(category_id);
+        const result = await this.categoryService.findAll();
+        return {
+            data: result
+        }
+    }
+
+    @Get('/findbyslug/:slug')
+    async findBySlug(
+        @Param('slug') slug: string,
+    ): Promise<webResponse<CategoryResponse>> {
+        const result = await this.categoryService.findByslug(slug);
         return {
             data: result
         }

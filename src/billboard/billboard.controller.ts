@@ -8,9 +8,9 @@ import {
     Patch,
     Post,
 } from '@nestjs/common';
-import { webResponse } from 'src/model/web.model';
+import { webResponse, webResponse2 } from 'src/model/web.model';
 import { Auth } from 'src/common/auth.decorator';
-import { User } from '@prisma/client';
+import { User, WebsiteDisplayStatus } from '@prisma/client';
 import { BillboardService } from './billboard.service';
 import { BillboardResponse, CreateBillboardRequest } from 'src/model/billboard.model';
 
@@ -27,6 +27,16 @@ export class BillboardController {
         return {
             data: result
         };
+    }
+
+    @Get('/findbillboard/:iShowedStatus')
+    async findShowenBillboard(
+        @Param('iShowedStatus') iShowedStatus: WebsiteDisplayStatus,
+    ): Promise<BillboardResponse> {
+
+        const result = await this.billboardService.findShowenBillboard(iShowedStatus);
+        return result;
+
     }
 
 

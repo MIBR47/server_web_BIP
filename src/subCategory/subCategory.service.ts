@@ -74,45 +74,44 @@ export class SubCategoryService {
         }
     }
 
-    async findAll(
-        category_id: number,
+    async findByslug(
+        slug: string,
     ): Promise<SubCategoryResponse[]> {
-        console.log(category_id)
+        // console.log(category_id)
         const subCategories = await this.prismaService.subCategory.findMany({
-            where: { categoryId: category_id, iShowedStatus: 'SHOW' },
-            // include: {
-            //     Product: {
-            //         select: {
-            //             name: true,
-            //             slug: true,
-            //             eCatalogURL: true,
-            //             remarks: true,
-            //             iStatus: true,
-            //             iShowedStatus: true,
-            //             // ProductDesc: true,
-            //             // ProductImage: true,
-
-            //         },
-            //     },
-            // },
+            where: {
+                // categoryId: category_id,
+                slug: slug,
+                iShowedStatus: 'SHOW'
+            },
         });
 
         const subcategory = subCategories.map((subcategory) => {
-            // const primaryImages = subcategory.images.filter((image) => image.isPrimary);
-            // const primaryImageURL =
-            //     primaryImages.length > 0 ? primaryImages[0].imageURL : null;
             return {
                 ...subcategory,
-                // id: subcategory.id,
-                // name: subcategory.name.trim(),
-                // slug: subcategory.slug?.trim(),
-                // catalog_id: product.catalog_id?.trim(),
-                // register_id: product.register_id?.trim(),
-                // category_id: subcategory.category_id,
-                // subCategory_id: product.subCategory_id.trim(),
-                // brand_id: product.brand_id.trim(),
-                // uom_id: product.uom_id?.trim(),
-                // primaryImageURL,
+            };
+        });
+
+        return subcategory as SubCategoryResponse[];
+    }
+
+    async findByCategoryId(
+        categoryid: number,
+    ): Promise<SubCategoryResponse[]> {
+        // console.log("param kebaca lagi?" + id);
+
+        // console.log(category_id)
+        const subCategories = await this.prismaService.subCategory.findMany({
+            where: {
+                // categoryId: category_id,
+                categoryId: categoryid,
+                // iShowedStatus: 'SHOW'
+            },
+        });
+
+        const subcategory = subCategories.map((subcategory) => {
+            return {
+                ...subcategory,
             };
         });
 

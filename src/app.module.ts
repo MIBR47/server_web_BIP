@@ -5,9 +5,10 @@ import { CategoryModule } from './category/category.module';
 import { ProductModule } from './product/product.module';
 import { SubCategoryModule } from './subCategory/subCategory.module';
 import { NewsModule } from './news/news.module';
+import { BillboardModule } from './billboard/billboard.module';
 
 @Module({
-  imports: [CommonModule, UserModule, CategoryModule, SubCategoryModule, ProductModule, NewsModule],
+  imports: [CommonModule, UserModule, CategoryModule, SubCategoryModule, ProductModule, NewsModule, BillboardModule],
   controllers: [],
   providers: [],
 })

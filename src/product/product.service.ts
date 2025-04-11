@@ -141,6 +141,97 @@ export class ProductService {
         }
 
     }
+
+    async findAll(): Promise<ProductResponse[]> {
+        const products = await this.prismaService.product.findMany({
+            where: { iShowedStatus: 'SHOW' },
+            include: {
+                ProductDesc: {},
+                ProductImage: {},
+            }
+            // include: {
+            //     Product: {
+            //         select: {
+            //             name: true,
+            //             slug: true,
+            //             eCatalogURL: true,
+            //             remarks: true,
+            //             iStatus: true,
+            //             iShowedStatus: true,
+            //             // ProductDesc: true,
+            //             // ProductImage: true,
+
+            //         },
+            //     },
+            // },
+        });
+
+        const product = products.map((product) => {
+            // const primaryImages = subcategory.images.filter((image) => image.isPrimary);
+            // const primaryImageURL =
+            //     primaryImages.length > 0 ? primaryImages[0].imageURL : null;
+            return {
+                ...product,
+                // id: subcategory.id,
+                // name: subcategory.name.trim(),
+                // slug: subcategory.slug?.trim(),
+                // catalog_id: product.catalog_id?.trim(),
+                // register_id: product.register_id?.trim(),
+                // category_id: subcategory.category_id,
+                // subCategory_id: product.subCategory_id.trim(),
+                // brand_id: product.brand_id.trim(),
+                // uom_id: product.uom_id?.trim(),
+                // primaryImageURL,
+            };
+        });
+
+        return product as ProductResponse[];
+    }
+    async findbyid(subCategory_id: number): Promise<ProductResponse[]> {
+        const products = await this.prismaService.product.findMany({
+            where: { subCategory_id },
+            include: {
+                ProductDesc: {},
+                ProductImage: {},
+            }
+            // include: {
+            //     Product: {
+            //         select: {
+            //             name: true,
+            //             slug: true,
+            //             eCatalogURL: true,
+            //             remarks: true,
+            //             iStatus: true,
+            //             iShowedStatus: true,
+            //             // ProductDesc: true,
+            //             // ProductImage: true,
+
+            //         },
+            //     },
+            // },
+        });
+
+        const product = products.map((product) => {
+            // const primaryImages = subcategory.images.filter((image) => image.isPrimary);
+            // const primaryImageURL =
+            //     primaryImages.length > 0 ? primaryImages[0].imageURL : null;
+            return {
+                ...product,
+                // id: subcategory.id,
+                // name: subcategory.name.trim(),
+                // slug: subcategory.slug?.trim(),
+                // catalog_id: product.catalog_id?.trim(),
+                // register_id: product.register_id?.trim(),
+                // category_id: subcategory.category_id,
+                // subCategory_id: product.subCategory_id.trim(),
+                // brand_id: product.brand_id.trim(),
+                // uom_id: product.uom_id?.trim(),
+                // primaryImageURL,
+            };
+        });
+
+        return product as ProductResponse[];
+    }
 }
 
 

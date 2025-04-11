@@ -67,7 +67,7 @@ export class CategoryService {
     }
 
     async findAll(
-        category_id: number,
+        // category_id: number,
     ): Promise<CategoryResponse[]> {
         const Categories = await this.prismaService.category.findMany({
             where: { iShowedStatus: 'SHOW' },
@@ -94,5 +94,35 @@ export class CategoryService {
         });
 
         return allCategory as CategoryResponse[];
+    }
+
+    async findByslug(
+        slug: string,
+    ): Promise<CategoryResponse> {
+        const Categories = await this.prismaService.category.findUnique({
+            where: { slug },
+        });
+
+        // const allCategory = Categories.map((category) => {
+        //     // const primaryImages = subcategory.images.filter((image) => image.isPrimary);
+        //     // const primaryImageURL =
+        //     //     primaryImages.length > 0 ? primaryImages[0].imageURL : null;
+        //     return {
+        //         ...category,
+        //         createdBy: category.createdBy.trim()
+        //         // id: subcategory.id,
+        //         // name: subcategory.name.trim(),
+        //         // slug: subcategory.slug?.trim(),
+        //         // catalog_id: product.catalog_id?.trim(),
+        //         // register_id: product.register_id?.trim(),
+        //         // category_id: subcategory.category_id,
+        //         // subCategory_id: product.subCategory_id.trim(),
+        //         // brand_id: product.brand_id.trim(),
+        //         // uom_id: product.uom_id?.trim(),
+        //         // primaryImageURL,
+        //     };
+        // });
+
+        return Categories as CategoryResponse;
     }
 }
